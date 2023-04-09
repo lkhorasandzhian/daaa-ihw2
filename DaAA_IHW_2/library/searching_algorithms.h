@@ -19,4 +19,7 @@ namespace lib_mod {
     std::vector<int> launchKnuthMorrisPratt(const std::string &text, const std::string &pattern);
 }
 
+/// Дополнительный алгоритм с использованием Z-функции.
+std::vector<int> zSearch(const std::string &text, const std::string &pattern);
+
 #endif //DAAA_IHW_2_DAAA_IHW_2_LIBRARY_SEARCHING_ALGORITHMS_H_

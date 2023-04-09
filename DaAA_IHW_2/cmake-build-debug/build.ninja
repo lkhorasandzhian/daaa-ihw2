@@ -79,6 +79,12 @@ build CMakeFiles/DaAA_IHW_2.dir/library/test.cpp.obj: CXX_COMPILER__DaAA_IHW_2_D
   OBJECT_DIR = CMakeFiles\DaAA_IHW_2.dir
   OBJECT_FILE_DIR = CMakeFiles\DaAA_IHW_2.dir\library
 
+build CMakeFiles/DaAA_IHW_2.dir/library/unit_test.cpp.obj: CXX_COMPILER__DaAA_IHW_2_Debug D$:/source/repos/cpp_solutions/daaa-ihw2/DaAA_IHW_2/library/unit_test.cpp || cmake_object_order_depends_target_DaAA_IHW_2
+  DEP_FILE = CMakeFiles\DaAA_IHW_2.dir\library\unit_test.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\DaAA_IHW_2.dir
+  OBJECT_FILE_DIR = CMakeFiles\DaAA_IHW_2.dir\library
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target DaAA_IHW_2
@@ -87,7 +93,7 @@ build CMakeFiles/DaAA_IHW_2.dir/library/test.cpp.obj: CXX_COMPILER__DaAA_IHW_2_D
 #############################################
 # Link the executable DaAA_IHW_2.exe
 
-build DaAA_IHW_2.exe: CXX_EXECUTABLE_LINKER__DaAA_IHW_2_Debug CMakeFiles/DaAA_IHW_2.dir/main.cpp.obj CMakeFiles/DaAA_IHW_2.dir/library/searching_algorithms.cpp.obj CMakeFiles/DaAA_IHW_2.dir/library/text_generator.cpp.obj CMakeFiles/DaAA_IHW_2.dir/library/result_file_recorder.cpp.obj CMakeFiles/DaAA_IHW_2.dir/library/test.cpp.obj
+build DaAA_IHW_2.exe: CXX_EXECUTABLE_LINKER__DaAA_IHW_2_Debug CMakeFiles/DaAA_IHW_2.dir/main.cpp.obj CMakeFiles/DaAA_IHW_2.dir/library/searching_algorithms.cpp.obj CMakeFiles/DaAA_IHW_2.dir/library/text_generator.cpp.obj CMakeFiles/DaAA_IHW_2.dir/library/result_file_recorder.cpp.obj CMakeFiles/DaAA_IHW_2.dir/library/test.cpp.obj CMakeFiles/DaAA_IHW_2.dir/library/unit_test.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\DaAA_IHW_2.dir

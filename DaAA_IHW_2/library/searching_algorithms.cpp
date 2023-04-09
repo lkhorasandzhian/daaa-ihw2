@@ -147,3 +147,40 @@ std::vector<int> lib_mod::launchKnuthMorrisPratt(const std::string &text, const 
 
         return positions;
 }
+
+std::vector<int> zFunction(const std::string &text) {
+    int n = static_cast<int>(text.size());
+    std::vector<int> z(n);
+
+    for (int i = 1, l = 0, r = 0; i < n; ++i) {
+        if (i <= r) {
+            z[i] = std::min(r - i + 1, z[i - l]);
+        }
+
+        while (i + z[i] < n && text[z[i]] == text[i + z[i]]) {
+            ++z[i];
+        }
+
+        if (i + z[i] - 1 > r) {
+            l = i;
+            r = i + z[i] - 1;
+        }
+    }
+    return z;
+}
+
+std::vector<int> zSearch(const std::string &text, const std::string &pattern) {
+    int pattern_size = static_cast<int>(pattern.size());
+
+    auto z_func = zFunction(pattern + "#" + text);
+
+    std::vector<int> positions;
+
+    for (int i = pattern_size + 1; i < z_func.size(); ++i) {
+        if (z_func[i] == pattern_size) {
+            positions.push_back(i - (pattern_size + 1));
+        }
+    }
+
+    return positions;
+}

@@ -1,4 +1,3 @@
-#include <iostream>
 #include <fstream>
 #include "result_file_recorder.h"
 #include "text_generator.h"

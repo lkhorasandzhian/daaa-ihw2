@@ -10,7 +10,7 @@ std::vector<int> simpleSearch(const std::string &text, const std::string &patter
     std::vector<int> positions;
 
     bool is_equals;
-    for (int i = 0; i + pattern_size < text_size; ++i) {
+    for (int i = 0; i + pattern_size <= text_size; ++i) {
         is_equals = true;
 
         for (int j = 0; j < pattern_size; ++j) {

@@ -54,32 +54,32 @@ namespace private_lib_std {
 }
 
 std::vector<int> lib_std::launchKnuthMorrisPratt(const std::string &text, const std::string &pattern) {
-        int n = static_cast<int>(text.size());
-        int m = static_cast<int>(pattern.size());
+    int n = static_cast<int>(text.size());
+    int m = static_cast<int>(pattern.size());
 
-        auto prefixes = private_lib_std::getPrefixes(pattern);
+    auto prefixes = private_lib_std::getPrefixes(pattern);
 
-        int count_of_equal = 0;
+    int count_of_equal = 0;
 
-        std::vector<int> positions;
-        positions.reserve(n);
-        for (int i = 0; i < n; ++i) {
-            while (count_of_equal > 0 && pattern[count_of_equal] != text[i] &&
-                pattern[count_of_equal] != count_of_equal) {
-                count_of_equal = prefixes[count_of_equal - 1];
-            }
-
-            if (text[i] == pattern[count_of_equal]) {
-                ++count_of_equal;
-            }
-
-            if (count_of_equal == m) {
-                positions.push_back(i - m + 1);
-                count_of_equal = prefixes[count_of_equal - 1];
-            }
+    std::vector<int> positions;
+    positions.reserve(n);
+    for (int i = 0; i < n; ++i) {
+        while (count_of_equal > 0 && pattern[count_of_equal] != text[i] &&
+            pattern[count_of_equal] != count_of_equal) {
+            count_of_equal = prefixes[count_of_equal - 1];
         }
 
-        return positions;
+        if (text[i] == pattern[count_of_equal]) {
+            ++count_of_equal;
+        }
+
+        if (count_of_equal == m) {
+            positions.push_back(i - m + 1);
+            count_of_equal = prefixes[count_of_equal - 1];
+        }
+    }
+
+    return positions;
 }
 
 namespace private_lib_mod {
@@ -120,32 +120,32 @@ namespace private_lib_mod {
 }
 
 std::vector<int> lib_mod::launchKnuthMorrisPratt(const std::string &text, const std::string &pattern) {
-        int n = static_cast<int>(text.size());
-        int m = static_cast<int>(pattern.size());
+    int n = static_cast<int>(text.size());
+    int m = static_cast<int>(pattern.size());
 
-        auto prefixes = private_lib_mod::getPrefixes(pattern);
+    auto prefixes = private_lib_mod::getPrefixes(pattern);
 
-        int count_of_equal = 0;
+    int count_of_equal = 0;
 
-        std::vector<int> positions;
-        positions.reserve(n);
-        for (int i = 0; i < n; ++i) {
-            while (count_of_equal > 0 && pattern[count_of_equal] != text[i] &&
-                pattern[count_of_equal] != count_of_equal) {
-                count_of_equal = prefixes[count_of_equal - 1];
-            }
-
-            if (text[i] == pattern[count_of_equal]) {
-                ++count_of_equal;
-            }
-
-            if (count_of_equal == m) {
-                positions.push_back(i - m + 1);
-                count_of_equal = prefixes[count_of_equal - 1];
-            }
+    std::vector<int> positions;
+    positions.reserve(n);
+    for (int i = 0; i < n; ++i) {
+        while (count_of_equal > 0 && pattern[count_of_equal] != text[i] &&
+            pattern[count_of_equal] != count_of_equal) {
+            count_of_equal = prefixes[count_of_equal - 1];
         }
 
-        return positions;
+        if (text[i] == pattern[count_of_equal]) {
+            ++count_of_equal;
+        }
+
+        if (count_of_equal == m) {
+            positions.push_back(i - m + 1);
+            count_of_equal = prefixes[count_of_equal - 1];
+        }
+    }
+
+    return positions;
 }
 
 std::vector<int> zFunction(const std::string &text) {

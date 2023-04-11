@@ -6,6 +6,7 @@
 #include <vector>
 #include "test.h"
 #include "searching_algorithms.h"
+#include "elementary_counter.h"
 
 std::vector<std::string> generatePatterns(const std::string &substr, int count_of_extra_symbols) {
     std::vector<std::string> patterns;
@@ -98,11 +99,12 @@ void launchTextViewer(const std::string &initial_text, std::ofstream *output, co
 }
 
 void launchTimeChecker(const std::string &initial_text, int pattern_size, int count_of_extra_symbols, std::ofstream *output, const std::string &info) {
-    const int count_of_repeats = 20;
-    const int count_of_tests = 3;
+    const int count_of_repeats = 10;
+    const int count_of_tests = 4;
     const std::string tests[count_of_tests] { "Simple",     // Brute-force search algo.
                                               "Standard",   // Standard KMP search algo.
-                                              "Modified"    // Modified KMP search algo.
+                                              "Modified",   // Modified KMP search algo.
+                                              "Z-func"
     };
     int current_test = 0;
 
@@ -122,18 +124,16 @@ void launchTimeChecker(const std::string &initial_text, int pattern_size, int co
 
 
 
-
     *output << info << tests[current_test++] << ";";
     nanoseconds = 0;
-    for (const std::string &pattern : patterns) {
-        for (int i = 0; i < count_of_repeats; ++i) {
-            auto start_time_point =  std::chrono::high_resolution_clock::now();
-            auto _ = simpleSearch(initial_text, pattern);
-            auto elapsed_time = std::chrono::high_resolution_clock::now() - start_time_point;
-            nanoseconds += std::chrono::duration_cast<std::chrono::nanoseconds>(elapsed_time).count();
-        }
+    for (int i = 0; i < count_of_repeats; ++i) {
+        auto start_time_point =  std::chrono::high_resolution_clock::now();
+        auto _ = simpleSearch(initial_text, substr);
+        auto elapsed_time = std::chrono::high_resolution_clock::now() - start_time_point;
+        nanoseconds += std::chrono::duration_cast<std::chrono::nanoseconds>(elapsed_time).count();
     }
     *output << nanoseconds / (count_of_repeats * static_cast<int>(patterns.size())) << "\n";
+
 
 
     *output << info << tests[current_test++] << ";";
@@ -161,4 +161,74 @@ void launchTimeChecker(const std::string &initial_text, int pattern_size, int co
         }
     }
     *output << nanoseconds / (count_of_repeats * static_cast<int>(patterns.size())) << "\n";
+
+
+
+    *output << info << tests[current_test++] << ";";
+    nanoseconds = 0;
+    for (const std::string &pattern : patterns) {
+        for (int i = 0; i < count_of_repeats; ++i) {
+            auto start_time_point =  std::chrono::high_resolution_clock::now();
+            auto _ = zSearch(initial_text, pattern);
+            auto elapsed_time = std::chrono::high_resolution_clock::now() - start_time_point;
+            nanoseconds += std::chrono::duration_cast<std::chrono::nanoseconds>(elapsed_time).count();
+        }
+    }
+    *output << nanoseconds / (count_of_repeats * static_cast<int>(patterns.size())) << "\n";
+}
+
+void launchCounterChecker(const std::string &initial_text, int pattern_size, int count_of_extra_symbols, std::ofstream *output, const std::string &info) {
+    const int count_of_tests = 4;
+    const std::string tests[count_of_tests] { "Simple",     // Brute-force search algo.
+                                              "Standard",   // Standard KMP search algo.
+                                              "Modified",   // Modified KMP search algo.
+                                              "Z-func"
+    };
+    int current_test = 0;
+
+    int pos = rand() % (static_cast<int>(initial_text.size()) - pattern_size);
+    std::string substr = initial_text.substr(pos, pos + pattern_size);
+    std::set<int> used_positions;
+    for (int i = 0; i < count_of_extra_symbols; ++i) {
+        do {
+            pos = rand() % pattern_size;
+        } while (used_positions.find(pos) != used_positions.end());
+        used_positions.insert(pos);
+        substr.insert(pos, "?");
+    }
+    auto patterns = generatePatterns(substr, count_of_extra_symbols);
+
+
+
+    *output << info << tests[current_test++] << ";";
+    global_counter = 0;
+    auto __ = simpleSearchCounter(initial_text, substr);
+    *output << global_counter / patterns.size() << "\n";
+
+
+
+    *output << info << tests[current_test++] << ";";
+    global_counter = 0;
+    for (const std::string &pattern : patterns) {
+        auto _ = count_std::launchKnuthMorrisPrattCounter(initial_text, pattern);
+    }
+    *output << global_counter / patterns.size() << "\n";
+
+
+
+    *output << info << tests[current_test++] << ";";
+    global_counter = 0;
+    for (const std::string &pattern : patterns) {
+        auto _ = count_mod::launchKnuthMorrisPrattCount(initial_text, pattern);
+    }
+    *output << global_counter / patterns.size() << "\n";
+
+
+
+    *output << info << tests[current_test++] << ";";
+    global_counter = 0;
+    for (const std::string &pattern : patterns) {
+        auto _ = zSearchCount(initial_text, pattern);
+    }
+    *output << global_counter / patterns.size() << "\n";
 }

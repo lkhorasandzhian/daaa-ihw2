@@ -5,3 +5,6 @@
 
 ## Remake
 [Link to the original repository here](https://github.com/lkhorasandzhian/daaa-ihw1)
+
+---
+Полученная оценка за работу: 10
